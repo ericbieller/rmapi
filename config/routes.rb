@@ -1,4 +1,7 @@
 Rmapi::Application.routes.draw do
+  devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" },
+             :controllers => { :omniauth_callbacks => "omniauth_callbacks" }#, :registrations => "registrations" }
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

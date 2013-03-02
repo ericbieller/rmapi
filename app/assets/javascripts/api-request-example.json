@@ -1,0 +1,81 @@
+{
+    api_key : '',
+    destination : '',
+    weight : '',
+    services :
+    [{ 
+        type : 'airmail', 
+        packaging(conditional) : 'postcard|letter|small_packet',
+        intl_signed_for : true|false,
+        extra_compensation : true|false, 
+        air_sure : true|false
+    },
+    {
+        type : 'surface_mail',
+        packaging(conditional) : 'letter|printed_paper_small_packet',
+        intl_signed_for : true|false,
+        extra_compensation : true|false 
+    },
+    {
+        type : '1st_class_mail',
+        packaging(conditional) : 'letter|large_letter|packet',
+        recorded_signed_for : true|false
+    },
+    {
+        type : '2nd_class_mail',
+        packaging(conditional) : 'letter|large_letter|packet',
+        recorded_signed_for : true|false
+    },
+    {
+        type : 'special_delivery_9am',
+        compensation_tier : '1|2|3',
+        saturday_guarantee : true|false (only for friday rates)
+    },
+    {
+        type : 'special_delivery_next_day',
+        compensation_tier : '1|2|3',
+        saturday_guarantee : true|false (only for friday rates)
+    },
+    {
+        type : 'standard_parcel'
+    },
+        type : 'express_9',,
+        saturday_delivery : true|false,
+        compensation_total : int (increments of 100)
+    },
+        type : 'express_10',
+        saturday_delivery : true|false,
+        compensation_total : int (increments of 100)
+    },
+        type : 'express_am',
+        saturday_delivery : true|false,
+        compensation_total : int (increments of 100)
+    },
+        type : 'express_24',
+        saturday_delivery : true|false,
+        compensation_total : int (increments of 100)
+    },
+        type : 'express_48',
+        saturday_delivery : true|false,
+        compensation_total : int (increments of 100),
+        large_size : true|false
+    },
+        type : 'global_express',
+        compensation_total : int (increments of 100)
+    },
+        type : 'global_priority',
+        compensation_total : int (increments of 100)
+    },
+        type : 'global_value',
+        compensation_total : int (increments of 100)
+    },
+        type : 'ireland_express',
+        compensation_total : int (increments of 100)
+    },
+        type : 'hm_forces_worldwide',
+        compensation_total : int (increments of 100)
+    },
+        type : 'global_economy'
+    }]
+
+}

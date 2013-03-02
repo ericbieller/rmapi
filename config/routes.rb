@@ -2,6 +2,12 @@ Rmapi::Application.routes.draw do
   devise_for :user, :path => '', :path_names => { :sign_in => "login", :sign_out => "logout", :sign_up => "signup" },
              :controllers => { :omniauth_callbacks => "omniauth_callbacks" }#, :registrations => "registrations" }
 
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :rates, :only => [:index]
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

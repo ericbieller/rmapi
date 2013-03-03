@@ -1,1 +1,12 @@
-Welcome to your dashboard
+<div id="dashboard">
+  <h1>Welcome to your RMAPI dashboard</h1>
+  
+  <div id="auth_token" class="box">
+  <h2>Your API authentication token is..</h2>
+  <p>
+    <code><%= current_user.authentication_token %></code>
+    <%= link_to 'Read the API Documentation', '/documentation' %>
+  </p>
+  <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+  </div>
+</div>

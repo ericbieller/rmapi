@@ -10,8 +10,9 @@
   <h2>Your API authentication token is..</h2>
   <p>
     <code><%= current_user.authentication_token %></code>
-    <%= link_to 'Read the API Documentation', '/documentation' %>
+    <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+    <%= link_to 'Read the API Documentation', '/documentation', :class => 'documentation_link' %>
   </p>
-  <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+  
   </div>
 </div>

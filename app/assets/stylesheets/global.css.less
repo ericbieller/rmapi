@@ -33,6 +33,12 @@ p {
     color: #fff;
 }
 
+.close {
+    border: 0;
+    background: none;
+    padding: 0;
+}
+
 // Form stuff
 
 input[type=text], input[type=password], input[type=email] {
@@ -59,22 +65,22 @@ form label {
     
 }
 
-#signup h2 {
+#signup h2, #login h2 {
     text-align: center;
 }
 
-#signup > p {
+#signup > p, #login > p {
     color: #4a4a4a;
     text-align: center;
     margin: 20px 0 30px 0;
 }
 
-#signup form {
+#signup form, #login form {
     margin: 0px auto;
     width: 400px;
 }
 
-#signup form input[type=submit] {
+#signup form input[type=submit], #login form input[type=submit] {
     margin-top: 10px;
     float: right;
 }

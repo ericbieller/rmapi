@@ -1,10 +1,7 @@
 class PaymentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :kick_out => [:except => :destroy]
   
   def new
-    if current_user.status == 'paid'
-      redirect_to '/dashboard'
-    end
   end
   
   def create
@@ -14,5 +11,24 @@ class PaymentsController < ApplicationController
     @payment.save
 
     redirect_to '/dashboard', :notice => "Your account has been upgraded!"
+  end
+  
+  def destroy
+    Stripe.api_key = "sk_test_fVKfBEBDcWPZl5mLFk44KBJX"
+    
+    cu = Stripe::Customer.retrieve(current_user.stripe_customer_id)
+    cu.delete
+    
+    User.update(current_user.id, :status => 'free', :stripe_customer_id => '')
+    
+    redirect_to '/dashboard', :notice => "Your account has been downgraded and you will no longer be billed"
+  end
+  
+  private
+  
+  def kick_out
+    if current_user.status == 'paid'
+      redirect_to '/dashboard'
+    end
   end
 end

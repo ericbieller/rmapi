@@ -18,6 +18,7 @@ Rmapi::Application.routes.draw do
   match 'dashboard' => 'dashboard#index'
   match 'payments' => 'payments#new'
   match 'payments/create' => 'payments#create'
+  match 'payments/destroy' => 'payments#destroy'
 
   # See how all your routes lay out with "rake routes"
 

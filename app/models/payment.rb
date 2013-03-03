@@ -11,15 +11,13 @@ class Payment < ActiveRecord::Base
     Stripe.api_key = "sk_test_fVKfBEBDcWPZl5mLFk44KBJX"
     
     # create the charge on Stripe's servers - this will charge the user's card
-    if charge = Stripe::Customer.create(
-      :email => email,
-      :plan => 'basic_plan',
-      :card => stripe_token,
-      :description => "Eric Bieller is a customer"
+    if customer = Stripe::Customer.create(
+        :card => stripe_token,
+        :plan => "basic_plan",
+        :description => email
       )
       
-      User.update(user_id, :status => 'paid', :stripe_token => stripe_token)
-      
+      User.update(user_id, :status => 'paid', :stripe_customer_id => customer.id)
     end
   end
 end

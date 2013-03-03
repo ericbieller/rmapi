@@ -11,9 +11,48 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130303013630) do
+ActiveRecord::Schema.define(:version => 20130303053316) do
+
+  create_table "countries", :force => true do |t|
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
+    t.string   "royal_mail_zone"
+    t.integer  "parcel_force_zone"
+    t.boolean  "qualifies_for_royal_mail_airsure"
+    t.string   "code"
+    t.string   "name"
+    t.boolean  "qualifies_for_royal_mail_international_signed_for"
+    t.boolean  "member_of_eu"
+  end
+
+  create_table "country_zones", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "country_id"
+    t.integer  "parcel_force_zone"
+  end
 
   create_table "payments", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "shipping_rates", :force => true do |t|
+    t.integer  "service_id"
+    t.string   "packaging"
+    t.integer  "weight"
+    t.string   "royal_mail_zone"
+    t.integer  "parcel_force_zone"
+    t.float    "price"
+    t.boolean  "member_of_eu"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "shipping_services", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

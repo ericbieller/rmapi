@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  service_id: 1
+  packaging: MyString
+  weight: 1
+  royal_mail_zone: MyString
+  parcel_force_zone: 1
+  price: 1.5
+  member_of_eu: false
+
+two:
+  service_id: 1
+  packaging: MyString
+  weight: 1
+  royal_mail_zone: MyString
+  parcel_force_zone: 1
+  price: 1.5
+  member_of_eu: false

@@ -25,6 +25,7 @@ gem 'pg'
 gem 'therubyracer'
 gem "less-rails", "~> 2.2.6"
 gem 'devise'
+gem 'fastercsv'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -4,6 +4,10 @@
 en:
   api:
     errors:
-      invalid_request:        "The request was invalid"
-      missing_credentials:    "Credentials are missing"
-      invalid_credentials:    "Invalid credentials"
+      invalid_request:            "The request is invalid"
+      missing_credentials:        "Credentials are missing"
+      invalid_credentials:        "Invalid credentials"
+      invalid_destination:        "Destination is invalid"
+      missing_destination_zone:   "When calculating shipping rates to this country, you must supply destination_zone (01 for default)"
+      invalid_destination_zone:   "Destination zone not found"
+      invalid_weight:             "Weight is invalid"

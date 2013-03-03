@@ -5,6 +5,12 @@ Rmapi::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       resources :rates, :only => [:index]
+      resources :users do
+        collection do
+          get :auth
+          post :reset_token
+        end
+      end
     end
   end
 

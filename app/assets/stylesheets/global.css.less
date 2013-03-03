@@ -1,5 +1,9 @@
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
 .navbar .nav-right {
     float: right;
 }
@@ -78,6 +82,10 @@ p {
     padding: 0;
 }
 
+hr {
+    margin: 40px 0;
+}
+
 // Form stuff
 
 body form input[type=text], body form input[type=password], body form input[type=email] {
@@ -134,9 +142,46 @@ form label {
 
 // Home
 
-.hero-inner {
+.hero-unit {
+    background: url('/assets/escheresque_ste.png');
+    border-radius: 0;
+    text-align: center;
+    color: #fff;
+    padding: 90px 0;
+}
+
+.hero-unit h1, .hero-unit p {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+.hero-inner, .row-inner {
     width: 980px;
     margin: 0px auto;
+}
+
+.hero-inner h1 {
+    font-weight: 300;
+    font-size: 40px;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+}
+
+.hero-unit p {
+    margin-bottom: 30px;
+    color: #cccccc;
+    font-weight: 300;
+}
+
+.row-inner > div {
+    background: #f6f6f6;
+    width: 296px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.sound-cool {
+    text-align: center;
 }
 
 // Dashboard

@@ -26,7 +26,7 @@
         // token contains id, last4, and card type
         var token = response.id;
         // Insert the token into the form so it gets submitted to the server
-        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        $form.append($('<input type="hidden" name="payment[stripe_token]" />').val(token));
         // and submit
         $form.get(0).submit();
       }
@@ -41,7 +41,7 @@
   <p>
     Upgrading your account gives you access to accurate shipping rates from Royal Mail&#8482;. <%= link_to 'Find out more', 'more' %>
   </p>
-  <%= form_for(:payment, :html => { :class => 'well middleform', :id => 'payment-form' }, :url => 'payments/create') do |f| %>
+  <%= form_for(:payment, :html => { :class => 'well middleform', :id => 'payment-form' }, :url => '/payments/create') do |f| %>
     <div id="card_number_container">
       <%= f.label 'Card Number' %>
       <%= f.text_field :card_number, :autocomplete => 'off', :class => 'card-number' %>

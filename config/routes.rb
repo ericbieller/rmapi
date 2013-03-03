@@ -17,6 +17,7 @@ Rmapi::Application.routes.draw do
   root :to => 'home#index'
   match 'dashboard' => 'dashboard#index'
   match 'payments' => 'payments#new'
+  match 'payments/create' => 'payments#create'
 
   # See how all your routes lay out with "rake routes"
 

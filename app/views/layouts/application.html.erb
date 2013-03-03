@@ -4,6 +4,10 @@
   <title>Rmapi</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_live_dgkJwS2IAfsxoUORX6VEYUud');
+  </script>  
   <%= csrf_meta_tags %>
 </head>
 <body>

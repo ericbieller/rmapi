@@ -1,0 +1,66 @@
+<script type="text/javascript">
+  $(function() {
+    $('#payment-form').submit(function(event) {
+      // Disable the submit button to prevent repeated clicks
+      $('.submit-button').prop('disabled', true);
+  
+      Stripe.createToken({
+        number: $('.card-number').val(),
+        cvc: $('.card-cvc').val(),
+        exp_month: $('.card-expiry-month').val(),
+        exp_year: $('.card-expiry-year').val()
+      }, stripeResponseHandler);
+  
+      // Prevent the form from submitting with the default action
+      return false;
+    });
+    
+    function stripeResponseHandler(status, response) {
+      if (response.error) {
+        // Show the errors on the form
+        $('.payment-errors').text(response.error.message);
+        $('.payment-errors').show();
+        $('.submit-button').prop('disabled', false);
+      } else {
+        var $form = $('#payment-form');
+        // token contains id, last4, and card type
+        var token = response.id;
+        // Insert the token into the form so it gets submitted to the server
+        $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+        // and submit
+        $form.get(0).submit();
+      }
+    }
+  });
+</script>
+
+<div class="alert alert-error payment-errors"></div>
+
+<div id="payment">
+  <h2>Upgrade your account</h2>
+  <p>
+    Upgrading your account gives you access to accurate shipping rates from Royal Mail&#8482;. <%= link_to 'Find out more', 'more' %>
+  </p>
+  <%= form_for(:payment, :html => { :class => 'well middleform', :id => 'payment-form' }, :url => 'payments/create') do |f| %>
+    <div id="card_number_container">
+      <%= f.label 'Card Number' %>
+      <%= f.text_field :card_number, :autocomplete => 'off', :class => 'card-number' %>
+    </div>
+    
+    <div id="cvc_container">
+      <%= f.label 'CVC' %>
+      <%= f.text_field :cvc, :autocomplete => 'off', :class => 'card-cvc' %>
+    </div>
+    
+    <div>
+      <%= f.label 'Expiration (MM/YYYY)' %>
+      <%= f.text_field :card_expiration_month, :autocomplete => 'off', :class => 'card-expiry-month' %>
+      <span id="slash"> / </span>
+      <%= f.text_field :card_expiration_year, :autocomplete => 'off', :class => 'card-expiry-year' %>
+    </div>
+    
+    <h3>You will be charged $9 a month for access to this API.</h3>
+    
+    <div><%= f.submit "Submit Payment", :class => 'btn btn-success btn-large' %></div>
+  <% end %>
+</div>

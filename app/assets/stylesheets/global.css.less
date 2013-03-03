@@ -42,10 +42,11 @@ p {
 
 // Form stuff
 
-input[type=text], input[type=password], input[type=email] {
+body form input[type=text], body form input[type=password], body form input[type=email] {
     width: 100%;
     height: 40px;
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
+    padding-left: 10px;
 }
 
 input[type=submit] {
@@ -58,8 +59,15 @@ input[type=submit] {
 }
 
 form label {
-    font-size: 14px;
+    clear: left;
+    font-size: 16px;
     float: left;
+    padding-bottom: 5px;
+}
+
+.middleform {
+    margin: 0px auto;
+    width: 400px;
 }
 
 #signup {
@@ -70,15 +78,10 @@ form label {
     text-align: center;
 }
 
-#signup > p, #login > p {
+#signup > p, #login > p, #payment > p  {
     color: #4a4a4a;
     text-align: center;
     margin: 20px 0 30px 0;
-}
-
-#signup form, #login form {
-    margin: 0px auto;
-    width: 400px;
 }
 
 #signup form input[type=submit], #login form input[type=submit] {
@@ -103,4 +106,61 @@ form label {
 
 #dashboard #regenerate {
     margin-top: 10px;
+}
+
+// Payment
+
+#card_number_container {
+    float: left;
+    width: 245px;
+}
+
+#cvc_container {
+    float: left;
+    margin-left: 10px;
+}
+
+#payment h2 {
+    text-align: center;
+}
+
+#payment form h3 {
+    text-align: center;
+    clear: both;
+    padding: 10px 0;
+}
+
+#payment form .btn {
+    display: block;
+    margin: 25px auto;
+    width: 200px;
+}
+
+#payment input[type=text] {
+    float: left;
+}
+
+#payment #payment_cvc {
+    clear: both;
+    width: 100px;
+}
+
+#payment #payment_card_expiration_month {
+    clear: both;
+    width: 50px;
+}
+
+#payment #slash {
+    font-weight: 300;
+    font-size: 25px;
+    margin: 10px 10px 0 10px;
+    float: left;
+}
+
+#payment #payment_card_expiration_year {
+    width: 100px;
+}
+
+.payment-errors {
+    display: none;
 }

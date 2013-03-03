@@ -3,7 +3,7 @@
   <p>
   </p>
   
-  <%= form_for(resource, :as => resource_name, :html => { :class => 'well' }, :url => session_path(resource_name)) do |f| %>
+  <%= form_for(resource, :as => resource_name, :html => { :class => 'well middleform' }, :url => session_path(resource_name)) do |f| %>
     <span class="form-error"><%= resource.errors[:email].join(", ") %></span>
     <div><%= f.label :email %><br />
     <%= f.email_field :email, :autofocus => true %></div>

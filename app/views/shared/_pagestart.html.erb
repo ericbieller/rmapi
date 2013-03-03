@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rmapi</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_live_dgkJwS2IAfsxoUORX6VEYUud');
+  </script>  
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to '', '/', :id => 'logo' %>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <% if user_signed_in? %>
+              <li<% if controller.controller_name == 'dashboard' %> class="active"<% end %>><a href="/dashboard">My Dashboard</a></li>
+            <% else %>
+              <li<% if controller.controller_name == 'home' %> class="active"<% end %>><a href="/">Home</a></li>
+              <li<% if controller.controller_name == 'pricing' %> class="active"<% end %>><a href="/pricing">Pricing</a></li>
+              <li><a href="/contact">Contact</a></li>
+            <% end %>
+          </ul>
+          <ul class="nav nav-right">
+            <% if user_signed_in? %>
+              <li><%= link_to "Help & Support", 'help' %></li>
+              <li<% if controller.controller_name == 'documentation' %> class="active"<% end %>><%= link_to "Documentation", 'documentation' %></li>
+              <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+              <li<% if controller.controller_name == 'sessions' %> class="active"<% end %>><a href="/login">Login</a></li>
+              <li<% if controller.controller_name == 'registrations' %> class="active"<% end %>><a href="/signup">Signup</a></li>
+            <% end %>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>

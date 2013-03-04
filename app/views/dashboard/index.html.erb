@@ -10,29 +10,27 @@
   
   <div class="row-fluid">
     <div class="span6 well">
-      <h2>How to use the API</h2>
+      <h2>Get started</h2>
       <p>
         Our API works by making a simple GET request
         to /api/v1/rates using the provided api access token below.
       </p>
       <p>
-        <code><%= current_user.authentication_token %></code>
-        <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+        <%= link_to 'Read the API Documentation', '/documentation', :class => 'documentation_link' %> to learn more about how to integrate.
       </p>
       <p>
-        <%= link_to 'Read the API Documentation', '/documentation', :class => 'documentation_link' %> to learn more about how to integrate.
+        <code><%= current_user.authentication_token %></code>
+        <a href="..." id="regenerate" class="btn">Regenerate Token</a>
       </p>
     </div>
     <div class="span6 well" id="manage_account">
       <h2>Manage your account</h2>
-      <h3><b>Account Status:</b> <%= current_user.status.capitalize %></h3>
-      <p>
-        <% if current_user.status == 'free' %>
-          <a href="/payments" id="regenerate" class="btn btn-primary">Upgrade account</a>
-        <% elsif current_user.status == 'paid' %>
-          <a href="/payments/destroy" id="regenerate" class="btn">Downgrade account</a>
-        <% end %>
-      </p>
+      <h3><span>Account Status:</span> <br /><%= current_user.status.capitalize %></h3>
+      <% if current_user.status == 'free' %>
+        <a href="/payments" id="upgrade" class="btn btn-primary">Upgrade account</a>
+      <% elsif current_user.status == 'paid' %>
+        <a href="/payments/destroy" id="regenerate" class="btn">Downgrade account</a>
+      <% end %>
     </div>
   </div>
 </div>

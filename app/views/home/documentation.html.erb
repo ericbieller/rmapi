@@ -13,12 +13,11 @@
 
 <div class="body-container">
   <div class="row">
-    <div class="span4">
+    <div class="span2">
       <ul class="nav nav-list">
         <li class="nav-header">API</li>
         <li class="active" id="getting_started"><a href="#getting_started_content"">Getting started</a></li>
-        <li id="rates"><a href="#rates_content">Rates</a></li>
-        <li id="rates"><a href="#rates_content">Sample API request</a></li>
+        <li id="rates"><a href="#rates_content">Sample application</a></li>
       </ul>
       <ul class="nav nav-list">
         <li class="nav-header">Other</li>
@@ -26,12 +25,105 @@
         <li><a href="#">Send us an email</a></li>
       </ul>
     </div>
-    <div class="span5 tab-content">
+    <div class="span7 tab-content">
       <div class="tab-pane active" id="getting_started_content">
         <h2>Getting started</h2>
+        <p>
+          Getting shipping rates with RMAPI is extremely easy. All it takes is one call to the <code>rates</code> API endpoint at <code>https://www.rmapi.com/api/v1/</code>.
+        </p>
+        <p>
+          We are magical here at RMAPI, but no matter how hard we tried, you still have to do a little bit of setup on your end before generating rates. Don't worry though, it's all pretty simple. You'll need to pass a couple of things to us in order for us to retrieve rates for you.
+        </p>
+        <table class="table doc_table">
+          <tr>
+            <td class="key">
+              api_key
+            </td>
+            <td>
+              This is a secure API key identifying your unique user with our system. You can get this value by logging into your RMAPI account and going to your dashboard.
+              <p><b>Example:</b></p>
+              <p>
+                <pre class="prettyprint linenums">Cck9vKB00G9sCkYISs</pre>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="key">
+              destination
+            </td>
+            <td>
+              This will identify the country your shipment is being sent to. The expected value is a ISO 3166 standard 2 letter country code. This is a pretty standard value and is usually readily accessible to most applications. You can learn more at <%= link_to 'http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2' %>
+              <p><b>Example:</b></p>
+              <p>
+                <pre class="prettyprint">GB</pre>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="key">
+              destination_zone
+            </td>
+            <td>
+              This parameter is used to further narrow down the geographical area your shipment is going to. Right now it's only used if you're shipping to United Kingdom (ISO code GB). If this is the case and the shipment is going to Channel Islands, this parameter should be set to "02". Otherwise it can be completely omitted (even if destination is GB) or set to "01"(for any destination).
+            </td>
+          </tr>
+          <tr>
+            <td class="key">
+              weight
+            </td>
+            <td>
+              This will identify the weight of the shipment. We'll be expecting an integer value describing the shipment weight in grams.
+              <p><b>Example:</b></p>
+              <p>
+                <pre class="prettyprint">1000</pre>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td class="key">
+              services
+            </td>
+            <td>
+              This will identify which services you wish to retrieve rates for. This is the most robust piece of information expected by our API so we'll explain it in more detail below. You can request rates for as many services as you wish. We'll only return rates for specifically requested services. This parameter should be passed as an array with each element describing details of the shipping service one by one.
+              <p><b>Example:</b></p>
+              <p>
+                <pre class="prettyprint linenums">
+[
+  {type:'airmail', packaging:'letter'},
+  {type:'surface_mail',packaging:'small_packet'}
+]</pre>
+              </p>
+            </td>
+          </tr>
+        </table>
+        <h3>Example request</h3>
+        <pre class="prettyprint linenums">
+$.ajax({
+  url: 'https://www.rmapi.com/api/v1/rates',
+  type: 'GET',
+  data: {
+    'destination'       : 'GB',
+    'weight'            : '1000',
+    'destination_zone'  : '',
+    'services'          : [
+      {
+        'name'          : 'airmail',
+        'packaging'     : 'letter'
+      },
+      {
+        'name'          : 'airsure',
+        'packaging'     : 'letter'
+      }
+    ]
+  },
+  dataType: "json",
+  success: function(response) {
+      // Process response
+  }
+});</javascript></pre>
       </div>
       <div class="tab-pane" id="rates_content">
-        <h2>Rates</h2>
+        <h2>Sample application</h2>
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
-CSV.read('/Users/ericbieller/countries_seed.txt').each do |row|
+CSV.read('http://rmapi-herokuapp.com/countries_seed.txt').each do |row|
   Country.create(
     :name => row[0],
     :code => row[1],
@@ -16,13 +16,13 @@ CSV.read('/Users/ericbieller/countries_seed.txt').each do |row|
     :qualifies_for_royal_mail_airsure => row[5],
     :qualifies_for_royal_mail_international_signed_for => row[6])
 end
-CSV.read('/Users/ericbieller/country_zones.txt').each do |row|
+CSV.read('http://rmapi-herokuapp.com/country_zones.txt').each do |row|
   ShippingService.create(
     :id => row[0],
     :name => row[1]
     )
 end
-CSV.read('/Users/ericbieller/shipping_rates.txt').each do |row|
+CSV.read('http://rmapi-herokuapp.com/shipping_rates.txt').each do |row|
   ShippingRate.create(
     :id => row[0],
     :service_id => row[1],
@@ -34,3 +34,5 @@ CSV.read('/Users/ericbieller/shipping_rates.txt').each do |row|
     :member_of_eu => row[7]
     )
 end
+# insert into country_zones (created_at, updated_at, name, code, country_id) values (current_timestamp, current_timestamp, '', '02', '319');
+# update country_zones set parcel_force_zone = '4';

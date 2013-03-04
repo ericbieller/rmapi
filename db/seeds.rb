@@ -6,7 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
-=begin
 CSV.read('/Users/ericbieller/countries_seed.txt').each do |row|
   Country.create(
     :name => row[0],
@@ -17,14 +16,12 @@ CSV.read('/Users/ericbieller/countries_seed.txt').each do |row|
     :qualifies_for_royal_mail_airsure => row[5],
     :qualifies_for_royal_mail_international_signed_for => row[6])
 end
-
 CSV.read('/Users/ericbieller/country_zones.txt').each do |row|
   ShippingService.create(
     :id => row[0],
     :name => row[1]
     )
 end
-=end
 CSV.read('/Users/ericbieller/shipping_rates.txt').each do |row|
   ShippingRate.create(
     :id => row[0],

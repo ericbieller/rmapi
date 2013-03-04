@@ -25,11 +25,11 @@
     </div>
     <div class="span6 well" id="manage_account">
       <h2>Manage your account</h2>
-      <h3><span>Account Status:</span> <%= current_user.status.capitalize %></h3>
+      <h4><span>Account Type:</span> <%= current_user.status.capitalize %></h4>
       <% if current_user.status == 'free' %>
-        <a href="/payments" id="upgrade" class="btn btn-primary">Upgrade account</a>
+        <a href="/payments" id="upgrade-action" class="btn btn-primary">Upgrade account</a>
       <% elsif current_user.status == 'paid' %>
-        <a href="/payments/destroy" id="regenerate" class="btn">Downgrade account</a>
+        <a href="/payments/destroy" id="upgrade-action" class="btn">Downgrade account</a>
       <% end %>
     </div>
   </div>

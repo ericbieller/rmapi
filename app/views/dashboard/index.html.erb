@@ -1,17 +1,38 @@
 <div id="dashboard">
-  <div class="alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Notice!</strong> You are currently in Sandbox mode<a href="#" data-toggle="tooltip" data-placement="bottom" class="help" title="Data returned in sandbox mode is unreliable and will sometimes be incorrect.">?</a>. <%= link_to 'Upgrade now', '/upgrade' %> to receive accurate shipping rates.
-  </div>
+  <% if current_user.status == 'free' %>
+    <div class="alert">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Notice!</strong> You are currently in Sandbox mode<a href="#" data-toggle="tooltip" data-placement="bottom" class="help" title="Data returned in sandbox mode is unreliable and will sometimes be incorrect.">?</a>. <%= link_to 'Upgrade now', '/payments' %> to receive accurate shipping rates.
+    </div>
+  <% end %>
   
   <h1>Welcome to your RMAPI dashboard</h1>
   
-  <div id="auth_token" class="well">
-  <h2>Your API authentication token is..</h2>
-  <p>
-    <code><%= current_user.authentication_token %></code>
-    <%= link_to 'Read the API Documentation', '/documentation' %>
-  </p>
-  <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+  <div class="row-fluid">
+    <div class="span6 well">
+      <h2>How to use the API</h2>
+      <p>
+        Our API works by making a simple GET request
+        to /api/v1/rates using the provided api access token below.
+      </p>
+      <p>
+        <code><%= current_user.authentication_token %></code>
+        <a href="..." id="regenerate" class="btn">Regenerate Token</a>
+      </p>
+      <p>
+        <%= link_to 'Read the API Documentation', '/documentation', :class => 'documentation_link' %> to learn more about how to integrate.
+      </p>
+    </div>
+    <div class="span6 well" id="manage_account">
+      <h2>Manage your account</h2>
+      <h3><b>Account Status:</b> <%= current_user.status.capitalize %></h3>
+      <p>
+        <% if current_user.status == 'free' %>
+          <a href="/payments" id="regenerate" class="btn btn-primary">Upgrade account</a>
+        <% elsif current_user.status == 'paid' %>
+          <a href="/payments/destroy" id="regenerate" class="btn">Downgrade account</a>
+        <% end %>
+      </p>
+    </div>
   </div>
 </div>

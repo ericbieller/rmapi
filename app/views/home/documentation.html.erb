@@ -1,0 +1,38 @@
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#getting_started a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+    $('#rates a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+  });
+</script>
+
+<div class="body-container">
+  <div class="row">
+    <div class="span4">
+      <ul class="nav nav-list">
+        <li class="nav-header">API</li>
+        <li class="active" id="getting_started"><a href="#getting_started_content"">Getting started</a></li>
+        <li id="rates"><a href="#rates_content">Rates</a></li>
+        <li id="rates"><a href="#rates_content">Sample API request</a></li>
+      </ul>
+      <ul class="nav nav-list">
+        <li class="nav-header">Other</li>
+        <li><a href="#">Help & Support</a></li>
+        <li><a href="#">Send us an email</a></li>
+      </ul>
+    </div>
+    <div class="span5 tab-content">
+      <div class="tab-pane active" id="getting_started_content">
+        <h2>Getting started</h2>
+      </div>
+      <div class="tab-pane" id="rates_content">
+        <h2>Rates</h2>
+      </div>
+    </div>
+  </div>
+</div>

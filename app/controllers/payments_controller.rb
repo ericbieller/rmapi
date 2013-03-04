@@ -10,11 +10,11 @@ class PaymentsController < ApplicationController
     @payment.email = current_user.email
     @payment.save
 
-    ActionMailer::Base.mail(
-                            :from => "reply@rmapi.com",
-                            :to => current_user.email,
-                            :subject => "Thanks for creating an account! You now have full access to the API and will receive the most accurate information from the server. If you have any questions at all please reply to this email.",
-                            :body => "You have upgraded your rmapi account!").deliver
+    #ActionMailer::Base.mail(
+    #                        :from => "reply@rmapi.com",
+    #                        :to => current_user.email,
+    #                        :subject => "Thanks for creating an account! You now have full access to the API and will receive the most accurate information from the server. If you have any questions at all please reply to this email.",
+    #                        :body => "You have upgraded your rmapi account!").deliver
 
     redirect_to '/dashboard', :notice => "Your account has been upgraded!"
   end
@@ -27,11 +27,11 @@ class PaymentsController < ApplicationController
     
     User.update(current_user.id, :status => 'free', :stripe_customer_id => '')
     
-    ActionMailer::Base.mail(
-                            :from => "reply@rmapi.com",
-                            :to => current_user.email,
-                            :subject => "Feel free to reply to this email and tell us any problems, issues or concerns you may have!",
-                            :body => "We're sorry to see you go :(").deliver
+    #ActionMailer::Base.mail(
+    #                        :from => "reply@rmapi.com",
+    #                        :to => current_user.email,
+    #                        :subject => "Feel free to reply to this email and tell us any problems, issues or concerns you may have!",
+    #                        :body => "We're sorry to see you go :(").deliver
     
     redirect_to '/dashboard', :notice => "Your account has been downgraded and you will no longer be billed"
   end

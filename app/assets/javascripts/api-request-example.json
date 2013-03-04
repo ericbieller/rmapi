@@ -7,7 +7,6 @@
         type : 'airmail', 
         packaging(conditional) : 'postcard|letter|small_packet',
         intl_signed_for : true|false,
-        extra_compensation : true|false, 
     },
 	{ 
         type : 'airsure', 

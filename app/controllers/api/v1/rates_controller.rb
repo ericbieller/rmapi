@@ -66,7 +66,7 @@ module Api
         if !shippingService
           return create_new_service_response_chunk(:failure, '', service[:type], '', Hash.new, t('api.errors.rates_api_service_not_understood'))
         else
-          return create_new_service_response_chunk(:success, shippingService.name, service[:type], '01', create_new_service_rate_response_chunk(7.60), '')
+          return create_new_service_response_chunk(:success, shippingService.name, service[:type], shippingService.id, create_new_service_rate_response_chunk(7.60), '')
         end
         
         rates = ShippingRate.find_by_sql("
@@ -98,7 +98,11 @@ module Api
         service_id = ''
         case service_type
           when 'airmail'
-            service_id = '22'
+            if service.has_key?(:intl_signed_for) && service[:intl_signed_for] == 'true'
+              service_id = '23'
+            else
+              service_id = '22'
+            end
           when 'airsure'
             service_id = '24'
           when 'surface_mail'

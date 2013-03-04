@@ -15,6 +15,7 @@ Rmapi::Application.routes.draw do
   end
 
   root :to => 'home#index'
+  match 'documentation' => 'home#documentation'
   match 'dashboard' => 'dashboard#index'
   match 'payments' => 'payments#new'
   match 'payments/create' => 'payments#create'

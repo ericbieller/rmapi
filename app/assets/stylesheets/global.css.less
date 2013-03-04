@@ -1,3 +1,5 @@
+@import "elements.css.less";
+
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 html {
@@ -38,6 +40,14 @@ html {
     height: 39px;
 }
 
+.btn-primary {
+    .gradient_ttb(#368497, #368497, #3ea4bd, 0);
+}
+
+.btn-primary:hover {
+    .gradient_ttb(#368497, #3a8ea4, #3fadc7, 0);
+}
+
 // Global styles
 
 h2 {
@@ -54,7 +64,8 @@ p {
 }
 
 .body-container {
-    margin-top: 20px;
+    width: 980px;
+    margin: 20px auto;
 }
 
 .help {
@@ -140,6 +151,16 @@ form label {
     float: left;   
 }
 
+// Documentation
+
+.nav-list li a {
+    color: #368497;
+}
+
+.nav-list li.active a, .nav-list li.active a:hover {
+    background: #368497;
+}
+
 // Home
 
 .hero-unit {
@@ -209,6 +230,11 @@ form label {
 
 #dashboard p {
     padding: 10px 0;
+    font-size: 14px;
+}
+
+#dashboard #manage_account h3 {
+    font-weight: 300;
 }
 
 // Payment

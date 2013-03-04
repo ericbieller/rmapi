@@ -34,7 +34,7 @@
           <ul class="nav nav-right">
             <% if user_signed_in? %>
               <li><%= link_to "Help & Support", 'help' %></li>
-              <li<% if controller.controller_name == 'documentation' %> class="active"<% end %>><%= link_to "Documentation", 'documentation' %></li>
+              <li<% if controller.action_name == 'documentation' %> class="active"<% end %>><%= link_to "Documentation", '/documentation' %></li>
               <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
             <% else %>
               <li<% if controller.controller_name == 'sessions' %> class="active"<% end %>><a href="/login">Login</a></li>

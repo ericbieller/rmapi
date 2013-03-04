@@ -124,6 +124,51 @@ $.ajax({
       </div>
       <div class="tab-pane" id="rates_content">
         <h2>Sample application</h2>
+          <h1>Hi</h1>
+          <div data-ng-controller="rmapiCtrl" id="angularContainer">
+                  API Key:
+                  <input type="text" data-ng-model="apiKey" /><br />
+                  
+                  Destination:
+                  <select data-ng-model="country" data-ng-options="c.name for c in countries">
+                          <option value="">Choose the destination country</option>
+                  </select><br />
+                  
+                  <div data-ng-show="needsDestinationZone()">
+                          Destination Zone:
+                                  <select data-ng-model="destinationZone">
+                                  <option value="01">Default</option>
+                                  <option value="02">Channel Islands</option>
+                          </select><br />
+                  </div>
+                  
+                  Weight:
+                  <input type="text" data-ng-model="weight" /><br />
+                  
+                  Services (test):<br />
+                  <div data-ng-repeat="availableService in availableServices">
+                          <label><input type="checkbox" data-ng-model="availableService.enabled" />{{availableService.name}}</label>
+                  </div>
+                  
+                  Services:<br />
+                  <label><input type="checkbox" class="serviceSwitch" name="service[]" value="airmail" />airmail</label><br />
+                  <label><input type="checkbox" class="serviceSwitch" name="service[]" value="airsure" />airsure</label><br />
+                  <label><input type="checkbox" class="serviceSwitch" name="service[]" value="surface_mail" />surface_mail</label><br />
+                  
+                  <input type="button" value="Get Rates" data-ng-click="getRates()" />
+                  
+                  <div data-ng-show="errors.length > 0">
+                          <h2>Oops!</h2>
+                          <p data-ng-repeat="e in errors">{{e.message}}</p>
+                  </div>
+                  
+                  <div data-ng-show="rates.length > 0">
+                          <h2>Request Target</h2>
+                          <p>{{requestEndpoint}}</p>
+                          <h2>Request Payload</h2>
+                          <p>{{requestPayload}}</p>
+                  </div>
+          </div>
       </div>
     </div>
   </div>

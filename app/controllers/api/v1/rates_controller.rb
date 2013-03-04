@@ -95,6 +95,13 @@ module Api
         errors = Array.new
         
         case service_type
+          when 'airmail'
+            acceptedPackaging = ['postcard', 'letter', 'small_packet']
+            if !service.has_key?(:packaging)
+              errors.push(t('api.errors.rates_api_service_packaging_missing'))
+            elsif !acceptedPackaging.include?(service[:packaging])
+              errors.push(t('api.errors.rates_api_service_packaging_not_recognized'))
+            end
           when 'express_48'
             if service.has_key?(:large_size) && service[:large_size] == 'true' && service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
               errors.push(t('api.errors.rates_api_service_express_48_large_size_saturday_delivery_not_supported'))

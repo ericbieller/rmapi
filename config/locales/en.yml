@@ -14,3 +14,5 @@ en:
       rates_api_services_empty:   "Please specify which shipping services you would like to calculat rates for"
       rates_api_service_not_understood:     "We did not recognize the requested service name"
       rates_api_service_express_48_large_size_saturday_delivery_not_supported: "This method doesn't allow using the large_size and saturday_delivery flags together"
+      rates_api_service_packaging_missing:  "You didn't include the packaging parameter in your service request"
+      rates_api_service_packaging_not_recognized:  "The packaging parameter included in your service request was not recognized"

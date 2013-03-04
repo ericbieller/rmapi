@@ -34,11 +34,40 @@ module Api
           end
         end
         
+        response_rates = Array.new
+        
+        # Do services validation
+        services = params[:services]
+        if services.nil?
+          render error(406, 0, [ t('api.errors.rates_api_services_empty') ])
+          return
+        end
+        
         # Setup variables
         royal_mail_zone   = country.royal_mail_zone.to_s
         parcel_force_zone = country.parcel_force_zone.to_s
         weight            = params[:weight].to_s
-        packaging         = params[:packaging].to_s
+        
+        services.each do |key,service|
+          response_rates.push(get_service_rate_or_error(service, royal_mail_zone, parcel_force_zone, weight))
+        end
+        p response_rates
+        return
+        
+        render success(response_rates, nil)
+        return
+      end
+      
+      private
+      
+      def get_service_rate_or_error(service, rmz, pfz, weight)
+        service_id = translate_api_service_to_service_id(service)
+        shippingService = ShippingService.find_by_id(service_id)
+        if !shippingService
+          return create_new_service_response_chunk(:failure, '', service[:type], '', Hash.new, t('api.errors.rates_api_service_not_understood'))
+        else
+          return create_new_service_response_chunk(:success, shippingService.name, service[:type], '01', create_new_service_rate_response_chunk(7.60), '')
+        end
         
         rates = ShippingRate.find_by_sql("
           SELECT *
@@ -53,12 +82,62 @@ module Api
         ")
         
         userReturnedRates = filter_rates_by_weight(rates)
-        
-        render success(userReturnedRates, nil)
-        return
       end
       
-      private
+      def create_new_service_response_chunk(status, service_name, service_type, service_code, rate, message)
+        my_hash = {:status => status, :name => service_name, :type => service_type, :code => service_code, :rate => rate, :message => message}
+        return my_hash
+      end
+      
+      def create_new_service_rate_response_chunk(amount, currency='GBP')
+        return {:amount => amount, :currency => currency}
+      end
+      
+      def translate_api_service_to_service_id(service)
+        service_type = service[:type]
+        service_id = ''
+        case service_type
+          when 'airmail'
+            service_id = '22'
+          when 'airsure'
+            service_id = '24'
+          when 'surface_mail'
+            service_id = '25'
+          when '1st_class_mail'
+            service_id = '1'
+          when '2nd_class_mail'
+            service_id = '2'
+          when 'special_delivery_9am'
+            service_id = '3'
+          when 'special_delivery_next_day'
+            service_id = '5'
+          when 'standard_parcel'
+            service_id = '9'
+          when 'express_9'
+            service_id = '11'
+          when 'express_10'
+            service_id = '12'
+          when 'express_am'
+            service_id = '13'
+          when 'express_24'
+            service_id = '14'
+          when 'express_48'
+            service_id = '15'
+          when 'global_express'
+            service_id = '27'
+          when 'global_priority'
+            service_id = '28'
+          when 'global_value'
+            service_id = '29'
+          when 'ireland_express'
+            service_id = '30'
+          when 'hm_forces_worldwide'
+            service_id = '32'
+          when 'global_economy'
+            service_id = '31'
+        end
+        return service_id
+      end
       
       def filter_rates_by_weight(rates)
         finalRates = Hash.new

@@ -8,7 +8,11 @@
         packaging(conditional) : 'postcard|letter|small_packet',
         intl_signed_for : true|false,
         extra_compensation : true|false, 
-        air_sure : true|false
+    },
+	{ 
+        type : 'airsure', 
+        packaging(conditional) : 'postcard|letter|small_packet',
+        extra_compensation : true|false, 
     },
     {
         type : 'surface_mail',

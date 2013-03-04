@@ -11,3 +11,5 @@ en:
       missing_destination_zone:   "When calculating shipping rates to this country, you must supply destination_zone (01 for default)"
       invalid_destination_zone:   "Destination zone not found"
       invalid_weight:             "Weight is invalid"
+      rates_api_services_empty:   "Please specify which shipping services you would like to calculat rates for"
+      rates_api_service_not_understood:     "We did not recognize the requested service name"

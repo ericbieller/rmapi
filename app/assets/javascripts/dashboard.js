@@ -4,7 +4,7 @@ $(document).ready(function() {
     $.ajax({
         url: 'http://localhost:3000/api/v1/rates',
         type: 'GET',
-        data: { 'destination' : 'AF', 'weight' : '27500', 'destination_zone' : '02', 'packaging' : 'letter', 'services' : [{ 'name' : 'airmail', 'packaging' : 'letter' }]},
+        data: { 'destination' : 'AF', 'weight' : '27500', 'destination_zone' : '02', 'services' : [{ 'type' : 'airmail', 'packaging' : 'letter' }, { 'type' : 'airsure', 'packaging' : 'letter' }, { 'type' : 'banana', 'packaging' : 'letter' }]},
         dataType: "json",
         //beforeSend: setHeader,
         success: function(response) {

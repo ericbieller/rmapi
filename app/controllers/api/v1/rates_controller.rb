@@ -66,7 +66,13 @@ module Api
         if !shippingService
           return create_new_service_response_chunk(:failure, '', service[:type], '', Hash.new, t('api.errors.rates_api_service_not_understood'))
         else
-          return create_new_service_response_chunk(:success, shippingService.name, service[:type], shippingService.id, create_new_service_rate_response_chunk(7.60), '')
+          validation_errors = validate_requested_shipping_service(service)
+          
+          if validation_errors.count > 0
+            return create_new_service_response_chunk(:failure, shippingService.name, service[:type], shippingService.id, Hash.new, validation_errors.join(';'))
+          else
+            return create_new_service_response_chunk(:success, shippingService.name, service[:type], shippingService.id, create_new_service_rate_response_chunk(7.60), '')  
+          end
         end
         
         rates = ShippingRate.find_by_sql("
@@ -82,6 +88,27 @@ module Api
         ")
         
         userReturnedRates = filter_rates_by_weight(rates)
+      end
+      
+      def validate_requested_shipping_service(service)
+        service_type = service[:type]
+        errors = Array.new
+        
+        case service_type
+          when 'airmail'
+            acceptedPackaging = ['postcard', 'letter', 'small_packet']
+            if !service.has_key?(:packaging)
+              errors.push(t('api.errors.rates_api_service_packaging_missing'))
+            elsif !acceptedPackaging.include?(service[:packaging])
+              errors.push(t('api.errors.rates_api_service_packaging_not_recognized'))
+            end
+          when 'express_48'
+            if service.has_key?(:large_size) && service[:large_size] == 'true' && service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              errors.push(t('api.errors.rates_api_service_express_48_large_size_saturday_delivery_not_supported'))
+            end
+        end
+        
+        return errors
       end
       
       def create_new_service_response_chunk(status, service_name, service_type, service_code, rate, message)
@@ -112,21 +139,51 @@ module Api
           when '2nd_class_mail'
             service_id = '2'
           when 'special_delivery_9am'
-            service_id = '3'
+            if service.has_key?(:saturday_guarantee) && service[:saturday_guarantee] == 'true'
+              service_id = '4'
+            else
+              service_id = '3'
+            end
           when 'special_delivery_next_day'
-            service_id = '5'
+            if service.has_key?(:saturday_guarantee) && service[:saturday_guarantee] == 'true'
+              service_id = '6'
+            else
+              service_id = '5'
+            end
           when 'standard_parcel'
             service_id = '9'
           when 'express_9'
-            service_id = '11'
+            if service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              service_id = '17'
+            else
+              service_id = '11'
+            end
           when 'express_10'
-            service_id = '12'
+            if service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              service_id = '18'
+            else
+              service_id = '12'
+            end
           when 'express_am'
-            service_id = '13'
+            if service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              service_id = '19'
+            else
+              service_id = '13'
+            end
           when 'express_24'
-            service_id = '14'
+            if service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              service_id = '20'
+            else
+              service_id = '14'
+            end
           when 'express_48'
-            service_id = '15'
+            if service.has_key?(:large_size) && service[:large_size] == 'true'
+              service_id = '16'
+            elsif service.has_key?(:saturday_delivery) && service[:saturday_delivery] == 'true'
+              service_id = '21'
+            else
+              service_id = '15'
+            end
           when 'global_express'
             service_id = '27'
           when 'global_priority'
